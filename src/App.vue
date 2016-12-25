@@ -1,9 +1,7 @@
 <template>
   <div id="app">
-      <app-registration @userRegistered="userRegistered"
-      :users="unregisteredUsers"></app-registration>
-
-      <app-registrations @userRegistered="userRegistered" :registrations="registrations"></app-registrations>
+      <app-registration></app-registration>
+      <app-registrations @userRegistered="userUnRegistered(user)" :registrations="registrations"></app-registrations>
   </div>
 </template>
 
@@ -23,7 +21,7 @@ export default {
     }
   },
   computed:{
-    unregisteredUsers(){
+    unRegisteredUsers(){
       return this.users.filter(user => {
          return !registered
       })
@@ -31,7 +29,24 @@ export default {
   },
   components:{
     'app-registration' : Registration,
-    'app-registrations' : Registrations,
+    'app-registrations' : Registrations
+  },
+  methods:{
+    userRegistered(user){
+      const date  = new Date
+      this.registrations.push({
+        id:user.id,
+        name:user.name,
+        date:`${date}.getMonth() + 1` + '/' + `${date.getDate()}`
+      })
+    },
+    userUnRegistered(registration){
+      const user  = this.users.find(user=>{
+        return user.id = registration.id
+      })
+      user.registered = false
+      this.registrations.splice(this.registrations.indexOf(registration),1)
+    }
   }
 }
 </script>
