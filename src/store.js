@@ -13,6 +13,8 @@ const state = {
   ]
 }
 
-export const store = new Vuex.Store({
+const store = new Vuex.Store({
   state : state
 })
+
+export default store

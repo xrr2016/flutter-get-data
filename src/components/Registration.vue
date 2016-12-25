@@ -26,6 +26,6 @@ export default {
 
 <style lang="scss" scoped>
   #registration{
-
+    width: 50%;
   }
 </style>

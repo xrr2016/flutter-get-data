@@ -1,7 +1,7 @@
 <template>
   <div id="app">
       <app-registration></app-registration>
-      <app-registrations @userRegistered="userUnRegistered(user)" :registrations="registrations"></app-registrations>
+      <app-registrations @userRegistered="userUnRegistered(user)"></app-registrations>
   </div>
 </template>
 
@@ -11,13 +11,6 @@ import Registrations from './components/Registrations.vue'
 export default {
   data () {
     return {
-      registrations:[],
-      users:[
-        {id:1,name:'Max',registered:false},
-        {id:2,name:'Anna',registered:false},
-        {id:3,name:'Kevin',registered:false},
-        {id:4,name:'Sven',registered:false}
-      ]
     }
   },
   computed:{
@@ -59,6 +52,10 @@ export default {
   text-align: center;
   color: #2c3e50;
   margin-top: 60px;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 h1, h2 {

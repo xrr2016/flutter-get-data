@@ -1,5 +1,5 @@
 <template lang="html">
-  <div class="">
+  <div class="Registrations">
     aaa
   </div>
 </template>
@@ -9,5 +9,9 @@ export default {
 }
 </script>
 
-<style lang="css">
+<style lang="scss">
+.Registrations{
+  width: 50%;
+  background-color: #ddd;
+}
 </style>
