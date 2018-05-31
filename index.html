@@ -1,17 +1,92 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <title>vuejs-learn</title>
-    <style media="screen">
-      html,body{
-        height: 100vh;
-        margin: 0;
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Collision detect</title>
+  <style>
+    html,
+    body {
+      margin: 0;
+      height: 100%;
+      background-color: #f5f5f5;
+    }
+
+    .box {
+      width: 100px;
+      height: 100px;
+      will-change: translate;
+    }
+
+    .box--blue {
+      background-color: blueviolet;
+    }
+
+    .box--purple {
+      background-color: purple;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="box box--blue"></div>
+  <div class="box box--purple"></div>
+  <script>
+    let movingBox = null
+    const boxList = document.querySelectorAll('.box')
+
+    const innerWidth = window.innerWidth
+    const innerHeight = window.innerHeight
+
+    function randomBoxPosition(box) {
+      box.style.transform =
+        `translate(${Math.ceil(Math.random() * innerWidth)}px, ${Math.ceil(Math.random() * innerHeight)}px)`
+    }
+
+    boxList.forEach(box => randomBoxPosition(box))
+
+    function getBoxRect(box) {
+      return box.getBoundingClientRect()
+    }
+
+    function collisionDetect(box1, box2) {
+      const box1Rect = getBoxRect(box1)
+      const box2Rect = getBoxRect(box2)
+
+      if (
+        box1Rect.x < box2Rect.x + 100 &&
+        box1Rect.x + 100 > box2Rect.x &&
+        box1Rect.y < box2Rect.y + 100 &&
+        box1Rect.y + 100 > box2Rect.y
+      ) {
+        alert('collide')
+        location.reload()
       }
-    </style>
-  </head>
-  <body>
-    <div id="app"></div>
-    <script src="/dist/build.js"></script>
-  </body>
+    }
+
+    document.addEventListener('mousemove', event => {
+      const {
+        x,
+        y
+      } = event
+      if (movingBox) {
+        collisionDetect(boxList[0], boxList[1])
+        movingBox.style.transform = `translate(${x - 50}px, ${y - 50}px)`
+      }
+    }, false)
+
+    boxList.forEach(box => {
+      box.addEventListener('mousedown', event => {
+        movingBox = event.target
+      }, false)
+
+      box.addEventListener('mouseup', event => {
+        movingBox = null
+      }, false)
+    })
+  </script>
+</body>
+
 </html>
