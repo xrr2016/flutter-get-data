@@ -142,11 +142,10 @@ class _AppHomePageState extends State<AppHomePage> {
 
   Future getMovies({String type = 'anime', int page = 1, String subtype = 'movie'}) async {
     final String url = "https://api.jikan.moe/top/$type/$page/$subtype";
-    print(url);
     final response = await http.get(url);
+
     if (response.statusCode == 200) {
       List top = json.decode(response.body)['top'];
-
       setState(() {
         movies = top.map((json) => Animate.fromJson(json)).toList();
       });
